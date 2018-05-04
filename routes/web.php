@@ -20,8 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 Route::resource('/user', 'AdminController');
-Route::get('/logins', 'Auth\LoginController@loginUser')->name('loginUser.submit');
 Route::post('/home', 'HomeController@updateProfile');
+Route::patch('/update', 'HomeController@updateInfo');
 Route::post('/admin', function (\Illuminate\Http\Request $request,
 \Illuminate\Mail\Mailer $mailer) {
     $mailer->to($request->input('email'))
@@ -35,6 +35,7 @@ Route::prefix('admin')->group(function() {
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
+    Route::get('/logins', 'AdminController@login')->name('loginUser.submit');
 
     Route::post('/password/email', 'Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
     Route::get('/password/reset', 'Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');

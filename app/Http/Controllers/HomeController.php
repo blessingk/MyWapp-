@@ -46,11 +46,24 @@ class HomeController extends Controller
 
     public function updateInfo(Request $request)
     {
-        $user = User::findOrFail($request->id);
+        $name = $request->input('name');
+        $sname = $request->input('surname');
+        $phone = $request->input('phone');
+        $email = $request->input('email');
+        $comp = $request->input('company');
+        $pass = $request->input('password');
 
-        $user->update($request->all());
+        $user = Auth::user();
+        $user->name = $name;
+        $user->surname =$sname;
+        $user->phone = $phone;
+        $user->email = $email;
+        $user->company = $comp;
+        $user->password = bcrypt($pass);
+        $user->save();
 
-        return back();
+        return view('home', array('user' => Auth::user()) );
+
     }
 
 }

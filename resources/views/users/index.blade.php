@@ -12,7 +12,6 @@
     <div class="table table-responsive">
         <table class="table table-bordered" id="table">
             <tr>
-                <th>NO</th>
                 <th>CLIENT NAME</th>
                 <th>EMAIL</th>
                 <th>PHONE NUMBER</th>
@@ -26,8 +25,7 @@
             <?php $no=1; ?>
             @foreach($user as $value)
                 <tr>
-                    <td>{{$value['id']}}</td>
-                    <td>{{$value['name']}}</td>
+                    <td>{{$value['name']}} {{$value['surname']}}</td>
                     <td>{{$value['email']}}</td>
                     <td>{{$value['phone']}}</td>
                     <td><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit" data-id="{{$value->id}}" data-company="{{$value->company}}" data-name="{{$value->name}}" data-surname="{{$value->surname}}" data-phone="{{$value->phone}}" data-email="{{$value->email}}">
@@ -119,6 +117,7 @@
                                 @endif
                             </div>
                         </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class=" btn btn-primary">
@@ -279,7 +278,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Login User</h4>
             </div>
-            <form method="post" action="{{route('loginUser.submit')}}">
+            <form method="post" action="/login">
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <input type="hidden" name="id" id="lid" value="{{$value->id}}"><br>

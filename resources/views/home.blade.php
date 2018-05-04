@@ -4,18 +4,18 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">{{ Auth::user()->name }}'s DASHBOARD</div>
+            <div class="panel panel-success">
+                <div class="col-md-12 panel-heading text-uppercase">{{ Auth::user()->name }}'s DASHBOARD</div>
 
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <p><strong>COMPANY NAME: </strong><br>{{ Auth::user()->company }}</p>
-                            <p><strong>FIRST NAME:</strong><br>{{ Auth::user()->name }}</p>
-                            <p><strong>LAST NAME:</strong><br>{{ Auth::user()->surname }}</p>
-                            <p><strong>MOBILE NUMBER:</strong><br>{{ Auth::user()->phone }}</p>
-                            <p><strong>EMAIL ADDRESS:</strong><br>{{ Auth::user()->email }}</p>
-                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit" data-id="{{Auth::user()->id}}" data-company="{{Auth::user()->company}}" data-name="{{Auth::user()->name}}" data-surname="{{Auth::user()->surname}}" data-phone="{{Auth::user()->phone}}" data-email="{{Auth::user()->email}}">
+                            <p class="col-md-8 text-primary"><strong>COMPANY NAME: </strong><br>{{ Auth::user()->company }}</p>
+                            <p class="col-md-8 text-primary"><strong>FIRST NAME:</strong><br>{{ Auth::user()->name }}</p>
+                            <p class="col-md-8 text-primary"><strong>LAST NAME:</strong><br>{{ Auth::user()->surname }}</p>
+                            <p class="col-md-8 text-primary"><strong>MOBILE NUMBER:</strong><br>{{ Auth::user()->phone }}</p>
+                            <p class="col-md-8 text-primary"><strong>EMAIL ADDRESS:</strong><br>{{ Auth::user()->email }}</p>
+                            <button class="col-md-6 btn btn-primary btn-md" data-toggle="modal" data-target="#edit" data-id="{{Auth::user()->id}}" data-company="{{Auth::user()->company}}" data-name="{{Auth::user()->name}}" data-surname="{{Auth::user()->surname}}" data-phone="{{Auth::user()->phone}}" data-email="{{Auth::user()->email}}">
                                 Update Profile
                             </button>
 
@@ -23,10 +23,10 @@
                         <div class="col-md-6">
                             <img src="/uploads/avatars/{{ Auth::user()->avatar }}" style="width:150px; height:150px; float:left; border-radius:50%; margin-right:25px;">
                             <form enctype="multipart/form-data" action="/home" method="POST">
-                                <label>Update Profile Image</label><br>
-                                <input type="file" value="select image" name="avatar">
+                                <label class="col-form-label-sm text-left text-primary">Update Profile Image</label><br><br>
+                                <input type="file" class="btn btn-block" value="select image" name="avatar">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <input type="submit" value="Update Photo" class="pull-right btn btn-sm btn-primary">
+                                <input type="submit" value="Update Photo" class="pull-left btn btn-md btn-primary">
                             </form>
                            </div>
                     </div>
@@ -41,9 +41,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit User Information</h4>
+                <h4 class="modal-title text-primary">Edit User Information</h4>
             </div>
-            <form method="post" action="{{route('user.update', 'test')}}">
+            <form method="post" action="/update">
                 {{ csrf_field() }}
                 {{method_field('patch')}}
                 <div class="modal-body">

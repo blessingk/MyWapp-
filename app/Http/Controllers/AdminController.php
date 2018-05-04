@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Users;
-use App\Validation\Validator;
 use Illuminate\Http\Request;
 use App\User;
 use response;
-use Illuminate\Support\Facades\input;
 use App\Http\Requests;
+use Auth;
 
 
 class AdminController extends Controller
@@ -62,24 +60,25 @@ class AdminController extends Controller
     public function destroy(Request $request)
     {
 
-        $user = Users::findOrFail($request->id);
+        $user = User::findOrFail($request->id);
         $user->delete();
 
         return back();
 
     }
 
-    public function loginUser(Request $request)
+    public function login(Request $request)
     {
 
         //validate form data
 
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-        ]);
-        //attempt to login
-        if(Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password])) {
+        $email = $request->input('email');
+        $pass = $request->input('password');
+        $user = Auth::user();
+        $user->email = $email;
+        $user->password = bcrypt($pass);
+//        //attempt to login
+        if(Auth::guard('admin')->login($user)) {
             return view('home');
         }
         return redirect()->back();
